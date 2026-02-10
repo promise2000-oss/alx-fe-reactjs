@@ -1,10 +1,10 @@
-function MainContent () {
-
-    return (
-        <main style={{border: "2px solid gray", borderRadius: "8px", padding: "8px"}}>
-            <p style={{color: "black"}}>I love to visit New York, Paris, and Tokyo.</p>
-        </main>
-    )
+// src/MainContent.jsx
+function MainContent() {
+  return (
+    <main style={{ fontFamily:'sans-serif', fontSize:'20px', fontStyle:'italic' }}>
+      <p>I love to visit New York, Paris, and Tokyo.</p>
+    </main>
+  );
 }
 
 export default MainContent;

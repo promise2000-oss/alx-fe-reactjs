@@ -1,24 +1,30 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-function Contact() {
+export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: ""
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted!');
+    alert(`Message sent by ${formData.name} (demo only)`);
+    setFormData({ name: "", email: "", message: "" });
   };
 
+  const containerStyle = { padding: "2rem", color: "#333" };
+  const inputStyle = { display: "block", margin: "0.5rem 0", padding: "0.5rem", width: "100%", maxWidth: "400px" };
+  const buttonStyle = { marginTop: "1rem", padding: "0.5rem 1rem", backgroundColor: "#4CAF50", color: "#fff", border: "none", cursor: "pointer" };
+
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f8f9fa' }}>
-      <h1 style={{ color: '#333' }}>Contact Us</h1>
+    <div style={containerStyle}>
+      <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -26,7 +32,8 @@ function Contact() {
           placeholder="Your Name"
           value={formData.name}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          style={inputStyle}
+          required
         />
         <input
           type="email"
@@ -34,24 +41,19 @@ function Contact() {
           placeholder="Your Email"
           value={formData.email}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          style={inputStyle}
+          required
         />
         <textarea
           name="message"
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
-          style={{ display: 'block', margin: '10px 0', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '100%', height: '100px' }}
+          style={{ ...inputStyle, height: "100px" }}
+          required
         />
-        <button
-          type="submit"
-          style={{ padding: '10px 20px', border: 'none', borderRadius: '4px', backgroundColor: '#007bff', color: '#fff', cursor: 'pointer' }}
-        >
-          Send Message
-        </button>
+        <button type="submit" style={buttonStyle}>Send Message</button>
       </form>
     </div>
   );
 }
-
-export default Contact;

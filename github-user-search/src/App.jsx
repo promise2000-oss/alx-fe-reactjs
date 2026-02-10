@@ -1,14 +1,16 @@
-import './services/api';
+import Search from "./components/Search";
 import './App.css'
-import Search from './components/Search';
 
 function App() {
+   return(
+    <div>
+    
+       <Search />
+    </div>
+   
+   )
 
-  return (
-    <>
-      <Search />
-    </>
-  )
 }
+
 
 export default App

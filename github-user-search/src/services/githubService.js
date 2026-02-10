@@ -1,29 +1,27 @@
-import axios from "axios";
 
-export async function fetchUserData({ username, location, minRepos, page }) {
-    const queries = [];
+const BASE_URL = "https://api.github.com";
 
-    if (username.trim().length) {
-        queries.push(username);
-    }
+export const searchUsers = async ({ username, location, minRepos }) => {
+  try {
+   
+    let query = username ? `${username} in:login` : "";
+    if (location) query += ` location:${location}`;
+    if (minRepos) query += ` repos:>=${minRepos}`;
 
-    if (location.trim().length) {
-        queries.push(`location:${location}`);
-    }
+    const response = await fetch(`${BASE_URL}/search/users?q=${encodeURIComponent(query)}&per_page=20`);
+    const data = await response.json();
 
-    if (minRepos.trim().length) {
-        queries.push(`repos:>${minRepos}`);
-    }
+   
+    const detailedUsers = await Promise.all(
+      data.items.map(async (user) => {
+        const res = await fetch(user.url);
+        return await res.json();
+      })
+    );
 
-    const queryString = queries.join(' ');
-
-    const url = `https://api.github.com/search/users?q=${encodeURIComponent(queryString)}&page=${page}&per_page=6`;
-
-    try {
-        const response = await axios.get(url);
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
+    return detailedUsers;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return [];
+  }
+};

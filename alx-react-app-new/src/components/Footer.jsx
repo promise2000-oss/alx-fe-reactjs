@@ -1,10 +1,10 @@
+// src/Footer.jsx
 function Footer() {
-
-    return (
-        <footer style={{backgroundColor: "black", borderRadius: "8px", padding: "1rem", marginBlock: "1rem"}}>
-            <p style={{color: "white"}}>© 2023 City Lovers</p>
-        </footer>
-    )
+  return (
+    <footer style={{ backgroundColor:'black', color:'white', textAlign:'center', fontfamily:'Arial'}}>
+      <p>© 2023 City Lovers</p>
+    </footer>
+  );
 }
 
 export default Footer;
